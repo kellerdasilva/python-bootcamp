@@ -5,49 +5,11 @@ alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n'
 # Imprimir a arte
 print(arte.arte)
 
-# Receber a entrada do usuário
-direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n").lower()
-text = input("Type your message:\n").lower()
-shift = int(input("Type the shift number:\n"))
-
-# Criptografar o texto recebido
-def encrypt(original_text, shift_amount):
-    encrypted_text = ""
-    
-    for letter in original_text:
-        try:
-            encrypted_text += alphabet[alphabet.index(letter) + shift_amount]
-        except IndexError:
-            encrypted_text += alphabet[alphabet.index(letter) + shift_amount - 26]
-        except ValueError:
-            encrypted_text += letter
-
-    print(f"Here is the encoded result: {encrypted_text}")
-
-# Descriptografar o texto recebido 
-def decrypt(original_text, shift_amount):
-    decrypted_text = ""
-    
-    for letter in original_text:
-        try:
-            decrypted_text += alphabet[alphabet.index(letter) - shift_amount]
-        except IndexError:
-            decrypted_text += alphabet[alphabet.index(letter) - shift_amount + 26]
-        except ValueError:
-            decrypted_text += letter
-
-    print(f"Here is the decoded result: {decrypted_text}")
-
-# Chamar a função solicitada
-# if direction == "encode":
-#     encrypt(original_text=text, shift_amount=shift)
-# if direction == "decode":
-#     decrypt(original_text=text, shift_amount=shift)
-
-# Fundir as duas funções em uma só
+# Criptografar ou descriptografar o texto recebido
 def caesar(original_text, shift_amount, action):
     output_text = ""
     
+    # Ajustar as variáveis de acordo com a ação a ser realizada
     if action == "encode":
         index_limit = -26
     if action == "decode":
@@ -64,13 +26,17 @@ def caesar(original_text, shift_amount, action):
             output_text += alphabet[alphabet.index(letter) + shift_amount + index_limit]
         
     print(f"Here is the {action}d result: {output_text}")
-    return(input('Type "yes" if you want to go again. Otherwise type "no".\n'))
-    
+
 while True:
+    # Receber a entrada do usuário
+    direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n").lower()
+    text = input("Type your message:\n").lower()
+    shift = int(input("Type the shift number:\n"))
+
     caesar(original_text=text, shift_amount=shift, action=direction)
     
-    if caesar == "no":
+    restart = input('Type "yes" if you want to go again. Otherwise type "no".\n').lower()
+    
+    if restart == "no":
         print("Thank you for using the Caeser Cypher. Goodbye.")
         break
-
-# TODO-3: Can you figure out a way to restart the cipher program?
